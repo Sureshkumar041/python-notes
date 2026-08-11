@@ -25,3 +25,8 @@ Naal - 11-08-2025 🗓
 1. *args
 2. **kwargs
 3. *agrs and **kwargs
+
+# Lesson 4 — Python * and ** unpacking
+
+1. Python's version of object spread
+2. Dictionary merging

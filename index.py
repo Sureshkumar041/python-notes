@@ -213,3 +213,67 @@ def create_user_service(name: str, **details: object) -> dict:
 user_dict = create_user_service("suresh", age=25, role="developer", active=True)
 
 print(user_dict)
+
+# Lesson 4 — Python * and ** unpacking
+
+# That's basically Python's version of object spread:
+
+# return {"name": name, **details}
+
+# Dictionary merging
+
+print("\nDictionary merging")
+
+user = {"name": "suresh", "age": 25}
+extra_field = {"role": "developer"}
+
+merging_dict = {**user, **extra_field}
+
+print(merging_dict)
+
+# 🚀 Your challenge
+# Write a function:
+
+# def update_user(user, **updates):
+#     ...
+
+# Given:
+
+# user = {
+#     "name": "Suresh",
+#     "age": 25,
+#     "role": "developer",
+#     "active": True
+# }
+
+# Calling:
+
+# updated = update_user(
+#     user,
+#     age=26,
+#     role="senior developer"
+# )
+
+# should produce:
+
+# {
+#     "name": "Suresh",
+#     "age": 26,
+#     "role": "senior developer",
+#     "active": True
+# }
+
+# Try to solve it using ** unpacking rather than modifying the original dictionary.
+
+
+def update_user_service(
+    user: dict[str, object], **updates: object
+) -> dict[str, object]:
+    return {**user, **updates}
+
+
+user_input_1 = {"name": "Suresh", "age": 25, "role": "developer", "active": True}
+
+updated_user = update_user_service(user_input_1, age=26, role="senior developer")
+
+print(updated_user)
