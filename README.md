@@ -10,12 +10,12 @@ Naal - 11-08-2025 🗓
 4. Dictionaries ≈ JavaScript Objects
 5. if statements
 6. for loops
-    ""6.1"" range
+    1 range
 7. List Comprehensions
-    ""7.1"" map
-    ""7.2"" filter
+    1 map
+    2 filter
 
 # Lesson 2: Functions
 
-Functions
-Default parameters
+1. Functions
+2. Default parameters
