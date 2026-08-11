@@ -265,6 +265,8 @@ print(merging_dict)
 
 # Try to solve it using ** unpacking rather than modifying the original dictionary.
 
+print("\nupdate_user_service")
+
 
 def update_user_service(
     user: dict[str, object], **updates: object
