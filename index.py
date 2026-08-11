@@ -1,3 +1,5 @@
+# Lesson 1 — Python for a JavaScript Developer
+
 # 1. Variables
 
 print("1. Variable 🥏")
@@ -94,3 +96,43 @@ users_input = [
 # 18 or older
 
 print([u["name"] for u in users_input if u["active"] and u["age"] >= 18])
+
+# Lesson 2: Functions
+
+print("\nFunctions")
+
+
+def add(a, b):
+    return a + b
+
+
+add_result = add(1, 2)
+
+print(add_result)
+
+print("\nDefault parameters")
+
+
+def default_parameters_func(a=1, b=2) -> int:
+    return a - b
+
+
+default_parameters_func_result = default_parameters_func()
+
+print(default_parameters_func_result)
+
+# 🚀 Your next challenge
+
+# get_active_users(users)
+# that returns the names of users who are active.
+
+print("\nget_active_users(users)")
+
+
+def get_active_users(users: list[dict]) -> list[str]:
+    return [u["name"] for u in users if u["active"]]
+
+
+get_active_users_result = get_active_users(users_input)
+
+print(get_active_users_result)
