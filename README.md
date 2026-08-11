@@ -19,3 +19,9 @@ Naal - 11-08-2025 🗓
 
 1. Functions
 2. Default parameters
+
+# Lesson 3 — *args and **kwargs
+
+1. *args
+2. **kwargs
+3. *agrs and **kwargs

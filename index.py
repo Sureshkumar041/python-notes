@@ -136,3 +136,80 @@ def get_active_users(users: list[dict]) -> list[str]:
 get_active_users_result = get_active_users(users_input)
 
 print(get_active_users_result)
+
+# Lesson 3 — *args and **kwargs
+
+print("\n*args")
+
+# 1. *args
+# Allows a function to receive any number of positional arguments.
+
+
+def add_nums(*nums):
+    return sum(nums)
+
+
+print(add_nums(1, 2))
+
+# 2. **kwargs
+# This captures arbitrary keyword arguments.
+
+print("\n**kwargs")
+
+
+def create_user(**kwargs):
+    print(kwargs)
+
+
+create_user(name="Suresh", age=25, role="developer")
+
+# kwargs is a dictionary.
+
+print("\n*agrs and **kwargs")
+
+
+def test(required, *args, **kwargs):
+    print(required)
+    print(args)
+    print(kwargs)
+
+
+test("Hey man", 10, 20, name="Suresh", age=25)
+
+# 🧠 Your challenge
+
+# Imagine you're building a reusable API helper.
+
+# Create:
+
+# def create_user(name, **details):
+#     ...
+
+# This should work:
+
+# user = create_user(
+#     "John",
+#     age=25,
+#     role="developer",
+#     active=True
+# )
+
+# Expected result:
+
+# {
+#     "name": "John",
+#     "age": 25,
+#     "role": "developer",
+#     "active": True
+# }
+
+print("\ncreate_user(name, **details)")
+
+
+def create_user_service(name: str, **details: object) -> dict:
+    return {"name": name, **details}
+
+
+user_dict = create_user_service("suresh", age=25, role="developer", active=True)
+
+print(user_dict)
