@@ -2,6 +2,7 @@
 
 # 1. Variables
 
+from dataclasses import dataclass, field
 from typing import TypedDict
 
 print("1. Variable 🥏")
@@ -543,3 +544,110 @@ admin_model.delete_user(user_modal_csm)
 print(admin_model.get_profile())
 
 # Lesson 8 — @dataclass.
+
+print("\n8 — @dataclass")
+
+
+@dataclass
+class UserDC:
+    name: str
+    email: str
+    age: int
+    is_active: bool = True
+
+    def deactivate(self) -> None:
+        self.is_active = False
+
+    def is_valid_age(self) -> bool:
+        return self.age >= 18
+
+
+user_dc = UserDC("Sandy", "sandy@maildrop.cc", 35)
+
+print(user_dc)
+
+user_dc.deactivate()
+
+print(user_dc.is_valid_age())
+
+print(user_dc)
+
+# ⚠️ Important: Mutable defaults
+
+print("\n⚠️ Important: Mutable defaults")
+
+
+@dataclass
+class UserDCList:
+    name: str
+    visited_place: list[str] = field(default_factory=list)
+    # default_factory=list creates a new list for every instance.
+
+
+user_dc_list1 = UserDCList("Suresh")
+user_dc_list2 = UserDCList("Kevin")
+
+user_dc_list1.visited_place.append("Chennai")
+
+print(f"user_dc_list1 - {user_dc_list1}")
+print(f"user_dc_list2 - {user_dc_list2}")
+
+# 🎯 Your challenge
+
+print("\nUserModelCSM into a dataclass")
+
+"""
+Convert your previous UserModelCSM into a dataclass.
+
+Requirements:
+
+name: str
+email: str
+age: int
+is_active: bool = True
+
+Add:
+
+is_adult() -> bool
+deactivate() -> None
+
+And add a class method:
+
+create_guest()
+
+that creates:
+
+name = "Guest"
+email = "guest@example.com"
+age = 18
+is_active = True
+"""
+
+
+@dataclass
+class UserModelCMWithDC:
+    name: str
+    email: str
+    age: int
+    is_active: bool = True
+
+    @classmethod
+    def create_guest(cls):
+        return cls("Jack", "jack@maildrop.cc", 34)
+
+    def deactivate(self) -> None:
+        self.is_active = False
+
+    def is_valid_age(self) -> bool:
+        return self.age >= 18
+
+
+user_modal_csm_dc = UserModelCMWithDC.create_guest()
+
+print(user_modal_csm_dc)
+
+user_modal_csm_dc.deactivate()
+
+print(user_modal_csm_dc.is_valid_age())
+
+print(user_modal_csm_dc)

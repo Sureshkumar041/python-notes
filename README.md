@@ -69,3 +69,48 @@ doesn't need object or class state
 Added class with class & static method.
 
 # Lesson 7 — Inheritance
+
+Inheritance is a core concept in Object-Oriented Programming (OOP) that allows a child class (derived/subclass) to absorb all methods and properties from a parent class (base/superclass).
+
+# Lesson 8 — @dataclass
+
+A Python dataclass is a regular class decorated with @dataclass that automatically generates repetitive special boilerplate methods like __init__(), __repr__(), and __eq__() based on declared type hints.
+
+1. Mutable defaults
+2. UserModelCSM into a dataclass
+
+#### 🚀 Now we're getting close to backend Python
+
+```
+Python fundamentals
+       ↓
+Functions
+       ↓
+Type hints
+       ↓
+*args / **kwargs
+       ↓
+Dictionary unpacking
+       ↓
+Classes
+       ↓
+Inheritance
+       ↓
+super()
+       ↓
+Method overriding
+       ↓
+classmethod / staticmethod
+       ↓
+@dataclass  ← CURRENTLY WE'RE HERE 👬
+       ↓
+Pydantic
+       ↓
+FastAPI
+       ↓
+REST API
+       ↓
+PostgreSQL
+       ↓
+Authentication
+```
