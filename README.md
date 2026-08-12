@@ -37,3 +37,33 @@ Naal - 12-08-2025 🗓
 
 1. Classes
 2. Add behavior
+
+# Lesson 6 — @classmethod vs @staticmethod
+
+1. Instance method
+
+An instance method is a function defined inside a class that operates directly on an instance (object) of that class.
+
+2. @classmethod
+
+@classmethod in Python is a built-in decorator used to define a method that is bound to the class itself rather than a specific object instance. It automatically receives the class as its first implicit argument, which is conventionally named cls.
+
+3. @staticmethod
+
+@staticmethod is a built-in decorator used to define a method inside a class that does not access or modify the class state or instance state.
+
+
+```text
+instance method
+    ↓
+needs this/self
+
+classmethod
+    ↓
+works with the class itself
+
+staticmethod
+    ↓
+doesn't need object or class state
+```
+Added class with class & static method.

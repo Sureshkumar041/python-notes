@@ -394,3 +394,120 @@ print("\nAdd behavior")
 print(user_cl.is_adult())
 user_cl.deactivate()
 print(user_cl.get_profile())
+
+# Lesson 6 — @classmethod vs @staticmethod
+
+# 1. Instance method
+
+print("\n1. Instance method")
+
+# def is_adult(self) -> bool:
+#     return self.age >= 18
+
+# user.is_adult()
+
+# 2. @classmethod
+
+print("\n2. @classmethod")
+
+# A class method receives cls instead of self.
+
+
+class UserModalCM:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @classmethod
+    def create_guest(cls):
+        return cls("Suresh", 24)
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data["name"], data["age"])
+
+
+user_modal_cm = UserModalCM.create_guest()
+
+print(f"Create Guest - Name: {user_modal_cm.name}")
+
+user_modal_cm1 = UserModalCM.from_dict({"name": "Sk", "age": 20})
+
+print(f"From dict - Name: {user_modal_cm1.name}")
+
+# 3. @staticmethod
+
+print("\n3. @staticmethod")
+
+# A static method doesn't need self or cls.
+
+
+class UserModalSM:
+    def is_valid_age(age: int) -> bool:
+        return age >= 18
+
+
+print(UserModalSM.is_valid_age(18))
+print(UserModalSM.is_valid_age(17))
+
+# Your challenge 🚀
+
+"""
+Add these two methods to your UserModel:
+
+@classmethod
+def create_guest(cls):
+    ...
+
+It should create:
+
+UserModel("Guest", "guest@example.com", 18, True)
+
+And:
+
+@staticmethod
+def is_valid_age(age: int) -> bool:
+    ...
+
+It should return True when age is between 18 and 100, otherwise False.
+
+Then test:
+
+guest = UserModel.create_guest()
+
+print(guest.get_profile())
+print(UserModel.is_valid_age(25))
+print(UserModel.is_valid_age(150))
+"""
+print("\nAdd class & static methods in Classes")
+
+
+class UserModelCSM:
+    def __init__(self, name, email, age, is_active):
+        self.name = name
+        self.email = email
+        self.age = age
+        self.is_active = is_active
+
+    def get_profile(self) -> User:
+        return {
+            "name": self.name,
+            "email": self.email,
+            "age": self.age,
+            "is_active": self.is_active,
+        }
+
+    @classmethod
+    def create_guest(cls):
+        return cls("Kevin", "kevin@maildrop.cc", 33, True)
+
+    @staticmethod
+    def is_valid_age(age: int) -> bool:
+        return age >= 18 and age <= 100
+
+
+user_modal_csm = UserModelCSM.create_guest()
+
+print(user_modal_csm.get_profile())
+print(user_modal_csm.is_valid_age(25))
+print(user_modal_csm.is_valid_age(150))
