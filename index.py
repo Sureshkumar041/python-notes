@@ -651,3 +651,29 @@ user_modal_csm_dc.deactivate()
 print(user_modal_csm_dc.is_valid_age())
 
 print(user_modal_csm_dc)
+
+# Lesson 9 — Pydantic.
+
+# 1. Your dataclass
+
+print("\n1. Your dataclass")
+
+
+@dataclass
+class UserDC1:
+    name: str
+    email: str
+    age: int
+    is_active: bool = True
+
+
+user_dc1 = UserDC1(name="Suresh", email="suresh@maildrop.cc", age="twenty")
+print(user_dc1)
+# Python's type hints don't automatically stop this.
+
+# 2. Pydantic Modes
+#  pip install pydantic
+
+# class UserBM(BaseModel):
+    
+

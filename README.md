@@ -114,3 +114,17 @@ PostgreSQL
        ↓
 Authentication
 ```
+# Lesson 9 — Pydantic.
+
+- TypeScript-style type definitions
+- Request validation
+- Data parsing/serialization
+
+1. Your dataclass
+    Python doesn't automatically validate incoming values.
+
+2. Pydantic Model
+
+```bash
+pip install pydantic
+```
