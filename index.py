@@ -317,7 +317,7 @@ class User(TypedDict):
     is_active: bool
 
 
-class User_Cl:
+class UserModel:
     def __init__(self, name: str, email: str, age: int, is_active: bool):
         self.name = name
         self.email = email
@@ -332,7 +332,65 @@ class User_Cl:
             "is_active": self.is_active,
         }
 
+    def is_adult(self) -> bool:
+        return self.age >= 18
 
-user_cl = User_Cl("suresh", "sureshkumar@maildrop.cc", 25, True)
+    def deactivate(self) -> None:
+        self.is_active = False
 
+
+user_cl = UserModel("suresh", "sureshkumar@maildrop.cc", 25, True)
+
+print(user_cl.get_profile())
+
+# 🚀 Next challenge: Add behavior
+
+# Right now your class stores data and returns it.
+
+# Let's make it behave more like a real backend domain object.
+
+# Add these methods:
+
+# is_adult()
+
+# Returns True if age >= 18.
+
+# And:
+
+# deactivate()
+
+# Changes:
+
+# is_active = False
+
+# So this should work:
+
+# user = UserModel(
+#     "suresh",
+#     "sureshkumar@maildrop.cc",
+#     25,
+#     True
+# )
+
+# print(user.is_adult())   # True
+
+# user.deactivate()
+
+# print(user.get_profile())
+
+# Expected:
+
+# True
+
+# {
+#     "name": "suresh",
+#     "email": "sureshkumar@maildrop.cc",
+#     "age": 25,
+#     "is_active": False
+# }
+
+print("\nAdd behavior")
+
+print(user_cl.is_adult())
+user_cl.deactivate()
 print(user_cl.get_profile())

@@ -36,3 +36,4 @@ Naal - 12-08-2025 🗓
 # Lesson 5 — Classes: Python vs JavaScript
 
 1. Classes
+2. Add behavior
