@@ -30,3 +30,9 @@ Naal - 11-08-2025 🗓
 
 1. Python's version of object spread
 2. Dictionary merging
+
+Naal - 12-08-2025 🗓
+
+# Lesson 5 — Classes: Python vs JavaScript
+
+1. Classes

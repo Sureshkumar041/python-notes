@@ -2,6 +2,8 @@
 
 # 1. Variables
 
+from typing import TypedDict
+
 print("1. Variable 🥏")
 
 name = "string value"
@@ -279,3 +281,58 @@ user_input_1 = {"name": "Suresh", "age": 25, "role": "developer", "active": True
 updated_user = update_user_service(user_input_1, age=26, role="senior developer")
 
 print(updated_user)
+
+# Lesson 5 — Classes: Python vs JavaScript
+
+print("\nClasses")
+
+
+# Your challenge
+
+# Create a User class with:
+
+# name
+# email
+# age
+# is_active
+
+# And a method:
+
+# get_profile()
+
+# that returns:
+
+# {
+#     "name": "Suresh",
+#     "email": "suresh@example.com",
+#     "age": 25,
+#     "is_active": True
+# }
+
+
+class User(TypedDict):
+    name: str
+    age: int
+    email: str
+    is_active: bool
+
+
+class User_Cl:
+    def __init__(self, name: str, email: str, age: int, is_active: bool):
+        self.name = name
+        self.email = email
+        self.age = age
+        self.is_active = is_active
+
+    def get_profile(self) -> User:
+        return {
+            "name": self.name,
+            "email": self.email,
+            "age": self.age,
+            "is_active": self.is_active,
+        }
+
+
+user_cl = User_Cl("suresh", "sureshkumar@maildrop.cc", 25, True)
+
+print(user_cl.get_profile())
