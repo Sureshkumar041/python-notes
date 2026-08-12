@@ -67,3 +67,5 @@ staticmethod
 doesn't need object or class state
 ```
 Added class with class & static method.
+
+# Lesson 7 — Inheritance

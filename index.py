@@ -503,11 +503,43 @@ class UserModelCSM:
 
     @staticmethod
     def is_valid_age(age: int) -> bool:
-        return age >= 18 and age <= 100
+        return 18 <= age <= 100
+
+    # chained comparisons
 
 
 user_modal_csm = UserModelCSM.create_guest()
 
-print(user_modal_csm.get_profile())
+user_modal_csm_val = user_modal_csm.get_profile()
+
+print(user_modal_csm_val)
 print(user_modal_csm.is_valid_age(25))
 print(user_modal_csm.is_valid_age(150))
+
+# Lesson 7 — Inheritance
+
+print("\n7 — Inheritance")
+
+
+class AdminModel(UserModelCSM):
+    def __init__(self, name, email, age):
+        super().__init__(name, email, age, True)
+        self.role = "admin"
+
+    def delete_user(self, user: UserModelCSM) -> None:
+        print(f"{self.name} deleted {user.name}")
+
+    def get_profile(self) -> User:
+        profile = super().get_profile()
+        profile["role"] = self.role
+        return profile
+
+
+admin_model = AdminModel("Liya", "liya@maildrop.cc", 30)
+
+
+print(admin_model.get_profile())
+admin_model.delete_user(user_modal_csm)
+print(admin_model.get_profile())
+
+# Lesson 8 — @dataclass.
