@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, HTTPException
+from fastapi import Depends, FastAPI, status, HTTPException
 from pydantic import BaseModel, Field
 
 app = FastAPI()
@@ -169,7 +169,11 @@ class DeletedPlayerRes(BaseModel):
     message: str
 
 
-@app.delete("/players/{player_id}", response_model=DeletedPlayerRes)
+@app.delete(
+    "/players/{player_id}",
+    response_model=DeletedPlayerRes,
+    status_code=status.HTTP_200_OK,
+)
 def delete_player(player_id: int):
     player_detail = next((p for p in players if p["id"] == player_id), None)
 
@@ -182,3 +186,50 @@ def delete_player(player_id: int):
     players[:] = [p for p in players if p["id"] != player_id]
 
     return {"message": "Deleted player successfully"}
+
+
+# Lesson 11 — FastAPI Dependency Injection
+print("\nLesson 11 — FastAPI Dependency Injection")
+
+
+class CurrentPlayer(BaseModel):
+    name: str
+    role: str
+
+
+class CurrentPlayerRes(BaseModel):
+    message: str
+    data: CurrentPlayer
+
+
+class DashboardDetailRes(BaseModel):
+    message: str
+    data: CurrentPlayer
+
+
+def get_current_player() -> CurrentPlayer:
+    return {"name": "suresh", "role": "Batter"}
+
+
+@app.get("/profile", response_model=CurrentPlayerRes)
+def get_profile(data: CurrentPlayer = Depends(get_current_player)):
+    return {"message": "Fetched player detail successfully", "data": data}
+
+
+@app.get("/dashboard", response_model=DashboardDetailRes)
+def get_dashboard(data: CurrentPlayer = Depends(get_current_player)):
+    return {"message": "Fetched dashboard detail successfully", "data": data}
+
+
+# 🎯 Dependency + Query Parameter
+def player_role(role: str = "Batter"):
+    return role
+
+
+@app.get("/player-role")
+def get_player_role(role: str = Depends(player_role)):
+    return {"role": role}
+
+
+# 🏏 Next ball: Reusable dependencies
+print("\n🏏 Next ball: Reusable dependencies")

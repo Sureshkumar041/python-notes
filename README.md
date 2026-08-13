@@ -284,3 +284,8 @@ HTTPException
    +
 CRUD operations
 ```
+## Lesson 11 — FastAPI Dependency Injection
+
+1. 🎯 Dependency + Query Parameter
+
+2. 🏏 Next ball: Reusable dependencies
