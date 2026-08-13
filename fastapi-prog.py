@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
@@ -44,3 +45,35 @@ def get_players(limit: int = 10):
 @app.get("/search_players")
 def search_players(name: str, limit: int = 10):
     return {"name": name, "limit": limit}
+
+
+# 🏏 Next ball — Request Body + Pydantic
+
+
+class PlayerBM(BaseModel):
+    name: str = Field(min_length=3)
+    age: int = Field(ge=18)
+    role: str
+    password: str = Field(min_length=6)
+
+
+class PlayerResBM(BaseModel):
+    name: str
+    age: int
+    role: str
+
+
+# 🏏 Next ball: Response Models
+class CreatePlayerRes(BaseModel):
+    message: str
+    data: PlayerResBM
+
+
+@app.post(
+    "/players", response_model=CreatePlayerRes, status_code=status.HTTP_201_CREATED
+)
+def create_player(player: PlayerBM):
+    return {"message": "Player created successfully", "data": player.model_dump()}
+
+
+# 🏏 Next ball: HTTP status codes

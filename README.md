@@ -185,8 +185,74 @@ http://127.0.0.1:8000/redoc
 gives you ReDoc.
 So unlike Express, you get interactive API documentation with very little extra work.
 
-#### Get
+#### Get API
 
 1. with path parameteres
 2. Query parameters
 
+#### Post API
+
+You learned Pydantic separately:
+
+```text
+BaseModel
+Field
+Validation
+Nested Models
+model_dump()
+```
+And now you're using it inside FastAPI:
+
+```text
+POST request
+     ↓
+Pydantic Model
+     ↓
+Validation
+     ↓
+Python function
+     ↓
+JSON response
+```
+#### Response Models
+
+⭐ Important concept
+
+This is exactly why we use separate request/response models:
+
+```text
+Client
+  │
+  │ password included
+  ↓
+PlayerBM
+  │
+  │ validated
+  ↓
+Your service
+  │
+  ↓
+CreatePlayerRes
+  │
+  │ password excluded
+  ↓
+Client
+```
+
+That's real API design.
+
+#### HTTP status codes
+
+
+✅ Lesson 10 progress
+
+ - FastAPI app & routes ✅
+ - GET endpoints ✅
+ - Path parameters ✅
+ - Query parameters ✅
+ - POST request body ✅
+ - Pydantic + FastAPI ✅
+ - Request models ✅
+ - Response models ✅
+ - Sensitive field exclusion (password) ✅
+ - HTTP status codes ✅
