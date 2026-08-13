@@ -233,3 +233,35 @@ def get_player_role(role: str = Depends(player_role)):
 
 # 🏏 Next ball: Reusable dependencies
 print("\n🏏 Next ball: Reusable dependencies")
+
+# dependency injection: write once, reuse everywhere.
+
+# 🏏 Next level: Dependency with a class
+print("\n🏏 Next level: Dependency with a class")
+
+
+class PlayerDepBM(BaseModel):
+    name: str
+    role: str
+
+
+class PlayerDepRes(BaseModel):
+    message: str
+    data: PlayerDepBM
+
+
+class PlayerDependency:
+    def __init__(self, name: str, role: str = "Batter"):
+        self.name = name
+        self.role = role
+
+    def __call__(self) -> PlayerDepBM:
+        return {"name": self.name, "role": self.role}
+
+
+player_dependency = PlayerDependency("Shanmukh")
+
+
+@app.get("/class-player", response_model=PlayerDepRes)
+def get_class_player_dep(data: PlayerDepBM = Depends(player_dependency)):
+    return {"message": "Fetched player dep successfully", "data": data}

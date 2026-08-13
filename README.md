@@ -287,5 +287,18 @@ CRUD operations
 ## Lesson 11 — FastAPI Dependency Injection
 
 1. 🎯 Dependency + Query Parameter
-
 2. 🏏 Next ball: Reusable dependencies
+3. 🏏 Next level: Dependency with a class
+
+
+🏆 Lesson 11 — Dependency Injection COMPLETE
+
+You've covered:
+
+- Depends() ✅
+- Simple dependencies ✅
+- Dependencies with query parameters ✅
+- Reusing dependencies across routes ✅
+- Typed dependencies ✅
+- Class-based dependencies ✅
+- __call__() with FastAPI dependencies ✅
