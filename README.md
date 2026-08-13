@@ -1,6 +1,6 @@
-Python 🐍
+### Python 🐍
 
-Naal - 11-08-2025 🗓
+> Naal - 11-08-2025 🗓
 
 # Lesson 1 — Python for a JavaScript Developer
 
@@ -31,7 +31,7 @@ Naal - 11-08-2025 🗓
 1. Python's version of object spread
 2. Dictionary merging
 
-Naal - 12-08-2025 🗓
+> Naal - 12-08-2025 🗓
 
 # Lesson 5 — Classes: Python vs JavaScript
 
@@ -128,3 +128,22 @@ Authentication
 ```bash
 pip install pydantic
 ```
+
+    - Step 1 — Your first Pydantic model
+    - Step 2 — Try Pydantic's parsing 
+
+
+```text
+Python type hint
+    ↓
+Tells developers/tools what type is expected
+
+Pydantic
+    ↓
+Actually validates/parses the data at runtime
+```
+3. Nested Models
+
+> Naal - 13-08-2025 🗓
+
+#### 🎯 Final part of Lesson 9: Field Validation

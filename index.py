@@ -675,5 +675,5 @@ print(user_dc1)
 #  pip install pydantic
 
 # class UserBM(BaseModel):
-    
 
+#  continue at pydantic.py file
