@@ -1,4 +1,4 @@
-# Python 🐍
+#    Python 🐍
 
 > Naal - 11-08-2025 🗓
 
@@ -256,3 +256,10 @@ That's real API design.
  - Response models ✅
  - Sensitive field exclusion (password) ✅
  - HTTP status codes ✅
+
+ #### CRUD: GET /players
+
+ Step 1 — Create our fake database
+ Step 2 — Create GET endpoint
+ Step 3 — Create post endpoint
+ Step 4 — PUT /players/{id}

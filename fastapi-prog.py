@@ -130,3 +130,36 @@ def get_player_detail(player_id: int):
         "message": "Fetched player detail successfully",
         "data": player_detail,
     }
+
+
+class UpdatePlayerBM(BaseModel):
+    name: str = Field(min_length=3)
+    age: int = Field(ge=18)
+    role: str
+
+
+class UpdatePlayerRes(BaseModel):
+    message: str
+    data: PlayerDetail
+
+
+@app.put("/players/{player_id}", response_model=UpdatePlayerRes)
+def update_players(player_id: int, payload: UpdatePlayerBM):
+    player_detail = next((p for p in players if p["id"] == player_id), None)
+
+    if not player_detail:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Player detail with id {player_id} not found",
+        )
+
+    # players[:] = [
+    #     {**p, **payload.model_dump()} if p["id"] == player_id else p for p in players
+    # ]
+
+    player_detail.update(payload.model_dump())
+
+    return {
+        "message": "Updated player detail successfully",
+        "data": player_detail,
+    }
