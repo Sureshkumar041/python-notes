@@ -259,7 +259,28 @@ That's real API design.
 
  #### CRUD: GET /players
 
- Step 1 — Create our fake database
- Step 2 — Create GET endpoint
- Step 3 — Create post endpoint
- Step 4 — PUT /players/{id}
+Step 1 — Create our fake database
+Step 2 — Create GET endpoint
+Step 3 — Create post endpoint
+Step 4 — PUT /players/{id}
+Step 5 — DELETE. 😎🔥
+
+```text
+FastAPI
+   +
+Pydantic
+   +
+Path parameters
+   +
+Query parameters
+   +
+Request validation
+   +
+Response models
+   +
+HTTP status codes
+   +
+HTTPException
+   +
+CRUD operations
+```

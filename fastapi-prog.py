@@ -163,3 +163,22 @@ def update_players(player_id: int, payload: UpdatePlayerBM):
         "message": "Updated player detail successfully",
         "data": player_detail,
     }
+
+
+class DeletedPlayerRes(BaseModel):
+    message: str
+
+
+@app.delete("/players/{player_id}", response_model=DeletedPlayerRes)
+def delete_player(player_id: int):
+    player_detail = next((p for p in players if p["id"] == player_id), None)
+
+    if not player_detail:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Player detail with id {player_id} not found",
+        )
+
+    players[:] = [p for p in players if p["id"] != player_id]
+
+    return {"message": "Deleted player successfully"}
