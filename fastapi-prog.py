@@ -1,7 +1,24 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel, Field
 
 app = FastAPI()
+
+
+class PlayerDetail(BaseModel):
+    id: int
+    name: str
+    age: int
+    role: str
+
+
+class PlayerListRes(BaseModel):
+    message: str
+    data: list[PlayerDetail]
+
+
+class PlayerByIdRes(BaseModel):
+    message: str
+    data: PlayerDetail | None
 
 
 @app.get("/")
@@ -66,14 +83,50 @@ class PlayerResBM(BaseModel):
 # 🏏 Next ball: Response Models
 class CreatePlayerRes(BaseModel):
     message: str
-    data: PlayerResBM
+    data: PlayerDetail
 
 
 @app.post(
     "/players", response_model=CreatePlayerRes, status_code=status.HTTP_201_CREATED
 )
 def create_player(player: PlayerBM):
-    return {"message": "Player created successfully", "data": player.model_dump()}
+    new_id = max(p["id"] for p in players) + 1
+    new_player = {**player.model_dump(), "id": new_id}
+    players.append(new_player)
+    return {"message": "Player created successfully", "data": new_player}
 
 
 # 🏏 Next ball: HTTP status codes
+
+players = [
+    {"id": 1, "name": "suresh", "age": 25, "role": "All rounder"},
+    {"id": 2, "name": "sk", "age": 26, "role": "Batter"},
+    {"id": 3, "name": "kevin", "age": 33, "role": "Bowler"},
+]
+
+# response
+
+
+@app.get("/players_list", response_model=PlayerListRes, status_code=status.HTTP_200_OK)
+def get_players_list():
+    return {"message": "Fetched player list successfully", "data": players}
+
+
+@app.get(
+    "/player_detail/{player_id}",
+    response_model=PlayerByIdRes,
+    status_code=status.HTTP_200_OK,
+)
+def get_player_detail(player_id: int):
+    player_detail = next((p for p in players if p["id"] == player_id), None)
+
+    if not player_detail:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Player detail with id {player_id} not found",
+        )
+
+    return {
+        "message": "Fetched player detail successfully",
+        "data": player_detail,
+    }

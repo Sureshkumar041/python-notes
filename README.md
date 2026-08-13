@@ -1,8 +1,8 @@
-### Python 🐍
+# Python 🐍
 
 > Naal - 11-08-2025 🗓
 
-# Lesson 1 — Python for a JavaScript Developer
+## Lesson 1 — Python for a JavaScript Developer
 
 1. Variables
 2. Strings
@@ -15,30 +15,30 @@
     1. map
     2. filter
 
-# Lesson 2: Functions
+## Lesson 2: Functions
 
 1. Functions
 2. Default parameters
 
-# Lesson 3 — *args and **kwargs
+## Lesson 3 — *args and **kwargs
 
 1. *args
 2. **kwargs
 3. *agrs and **kwargs
 
-# Lesson 4 — Python * and ** unpacking
+## Lesson 4 — Python * and ** unpacking
 
 1. Python's version of object spread
 2. Dictionary merging
 
 > Naal - 12-08-2025 🗓
 
-# Lesson 5 — Classes: Python vs JavaScript
+## Lesson 5 — Classes: Python vs JavaScript
 
 1. Classes
 2. Add behavior
 
-# Lesson 6 — @classmethod vs @staticmethod
+## Lesson 6 — @classmethod vs @staticmethod
 
 1. Instance method
 
@@ -68,11 +68,11 @@ doesn't need object or class state
 ```
 Added class with class & static method.
 
-# Lesson 7 — Inheritance
+## Lesson 7 — Inheritance
 
 Inheritance is a core concept in Object-Oriented Programming (OOP) that allows a child class (derived/subclass) to absorb all methods and properties from a parent class (base/superclass).
 
-# Lesson 8 — @dataclass
+## Lesson 8 — @dataclass
 
 A Python dataclass is a regular class decorated with @dataclass that automatically generates repetitive special boilerplate methods like __init__(), __repr__(), and __eq__() based on declared type hints.
 
@@ -114,7 +114,7 @@ PostgreSQL
        ↓
 Authentication
 ```
-# Lesson 9 — Pydantic.
+## Lesson 9 — Pydantic.
 
 - TypeScript-style type definitions
 - Request validation
@@ -148,7 +148,7 @@ Actually validates/parses the data at runtime
 
 #### 🎯 Final part of Lesson 9: Field Validation
 
-# Lesson 10 — FastAPI
+## Lesson 10 — FastAPI
 
 First, install FastAPI + Uvicorn
 
