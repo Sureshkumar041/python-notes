@@ -94,3 +94,5 @@ product_bm_validate = ProductBMWithValidation(
 )
 
 print(product_bm_validate)
+
+# Lesson 10 — FastAPI

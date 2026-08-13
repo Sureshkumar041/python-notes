@@ -147,3 +147,46 @@ Actually validates/parses the data at runtime
 > Naal - 13-08-2025 🗓
 
 #### 🎯 Final part of Lesson 9: Field Validation
+
+# Lesson 10 — FastAPI
+
+First, install FastAPI + Uvicorn
+
+```bash
+python -m pip install fastapi uvicorn
+```
+1. Create your first API
+2. Start the server
+
+From your project directory:
+
+```bash
+python -m uvicorn file-name:app --reload
+```
+
+3. The cool part 😎
+
+FastAPI automatically gives you API documentation.
+
+Open:
+
+```bash
+http://127.0.0.1:8000/docs
+```
+
+You'll see Swagger UI.
+
+And:
+
+```bash
+http://127.0.0.1:8000/redoc
+```
+
+gives you ReDoc.
+So unlike Express, you get interactive API documentation with very little extra work.
+
+#### Get
+
+1. with path parameteres
+2. Query parameters
+
