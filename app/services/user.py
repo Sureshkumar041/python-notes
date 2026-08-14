@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import func, select, update
+from sqlalchemy import func, or_, select, update
 
 from app.models.user import User
 from app.schemas.user import CreateUser, DeleteUser, GetUserList, UpdateUser
@@ -98,7 +98,11 @@ def update_user_ser(db: Session, payload: UpdateUser):
 
 def update_user_status_ser(db: Session, payload: DeleteUser):
     user_id = payload.id
-    result = db.execute(select(User).where(User.id == user_id))
+    result = db.execute(
+        select(User).where(
+            User.id == user_id, or_(User.status == "active", User.status == "inactive")
+        )
+    )
 
     user = result.scalar_one_or_none()
 
