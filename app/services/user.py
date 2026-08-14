@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 
 from app.models.user import User
-from app.schemas.user import CreateUser, GetUserList
+from app.schemas.user import CreateUser, DeleteUser, GetUserList, UpdateUser
 
 from fastapi import HTTPException, status
 
@@ -33,8 +33,6 @@ def get_user_profile_ser(db: Session, user_id):
     result = db.execute(select(User).where(User.id == user_id))
 
     user = result.scalar_one_or_none()
-
-    print(user)
 
     if user is None:
         raise HTTPException(
@@ -67,3 +65,59 @@ def get_user_list_ser(db: Session, page: int, limit: int, status: str | None = N
     users = result.scalars().all()
 
     return {"list": users, "total": total_count, "page": page, "limit": limit}
+
+
+def update_user_ser(db: Session, payload: UpdateUser):
+    user_id = payload.id
+    result = db.execute(select(User).where(User.id == user_id))
+
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User detail with id {user_id} not found",
+        )
+
+    stmt = (
+        update(User)
+        .where(User.id == user_id)
+        .values(
+            {
+                "first_name": payload.first_name,
+                "last_name": payload.last_name,
+                "status": payload.status,
+            }
+        )
+    )
+
+    db.execute(stmt)
+    db.commit()
+    return True
+
+
+def update_user_status_ser(db: Session, payload: DeleteUser):
+    user_id = payload.id
+    result = db.execute(select(User).where(User.id == user_id))
+
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User detail with id {user_id} not found",
+        )
+
+    stmt = (
+        update(User)
+        .where(User.id == user_id)
+        .values(
+            {
+                "status": payload.status,
+            }
+        )
+    )
+
+    db.execute(stmt)
+    db.commit()
+    return True

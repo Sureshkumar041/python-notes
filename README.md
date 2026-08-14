@@ -374,6 +374,7 @@ User APIs
 2. Get All User
 3. Get User Profile
 4. Update User — PUT /users/{user_id}
+5. Update User - Put /users/update-user-status
 
 
 

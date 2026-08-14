@@ -47,6 +47,19 @@ class GetUserListRes(BaseModel):
     data: UserListObj
 
 
+class UpdateUser(CreateUser):
+    id: int
+
+
+class UpdateUserRes(BaseModel):
+    message: str
+
+
+class DeleteUser(BaseModel):
+    id: int
+    status: str
+
+
 model_config = ConfigDict(from_attributes=True)
 
 """
