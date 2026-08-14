@@ -1,7 +1,9 @@
 from datetime import datetime
-from sqlalchemy import text, DateTime
+from sqlalchemy import text, DateTime, ForeignKey
 from app.db.base import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.models.file import File
 
 
 class User(Base):
@@ -13,4 +15,17 @@ class User(Base):
     status: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=text("TIMEZONE('utc', NOW())")
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        server_default=text("TIMEZONE('utc', NOW())"),
+        onupdate=text("TIMEZONE('utc', NOW())"),
+    )
+    profile_image_id: Mapped[int | None] = mapped_column(
+        ForeignKey("files.id"), nullable=True
+    )
+    profile_image: Mapped["File | None"] = relationship(
+        "File",
+        foreign_keys=[profile_image_id],
+        uselist=False,
     )

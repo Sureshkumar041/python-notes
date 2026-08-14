@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, Query, status
-from pydantic import Field
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
@@ -8,7 +7,6 @@ from app.schemas.user import (
     CreateUserRes,
     DeleteUser,
     GetUserDetailRes,
-    GetUserList,
     GetUserListRes,
     UpdateUser,
     UpdateUserRes,

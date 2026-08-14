@@ -1,0 +1,28 @@
+from datetime import datetime
+from sqlalchemy import text, DateTime
+from app.db.base import Base
+from sqlalchemy.orm import Mapped, mapped_column
+
+
+class File(Base):
+    __tablename__ = "files"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    user_id: Mapped[int]
+    # profile_image / document / etc.
+    file_category: Mapped[str]
+    original_file_name: Mapped[str]
+    file_name: Mapped[str]
+    path: Mapped[str]
+    mime_type: Mapped[str]
+    # bytes
+    file_size: Mapped[int]
+    status: Mapped[str]
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=text("TIMEZONE('utc', NOW())")
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        server_default=text("TIMEZONE('utc', NOW())"),
+        onupdate=text("TIMEZONE('utc', NOW())"),
+    )

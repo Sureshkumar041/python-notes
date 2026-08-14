@@ -1,5 +1,6 @@
 from app.db.base import Base
 from app.db.database import engine
+from app.models.file import File
 from app.models.user import User
 
 Base.metadata.create_all(bind=engine)

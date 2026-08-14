@@ -376,6 +376,32 @@ User APIs
 4. Update User — PUT /users/{user_id}
 5. Update User - Put /users/update-user-status
 
+## Lesson 13 - File Upload
+
+```text
+1. Upload one file
+        ↓
+2. Read file metadata
+        ↓
+3. Save file to disk
+        ↓
+4. Generate unique filename
+        ↓
+5. Store file details in PostgreSQL
+        ↓
+6. Return file response
+        ↓
+7. Download file
+        ↓
+8. Delete file / soft delete
+```
+
+#### 1. First concept: UploadFile
+
+2. Save the physical file
+
+
+
 
 
 ### Project folder structure
