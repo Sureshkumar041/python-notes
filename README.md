@@ -302,3 +302,113 @@ You've covered:
 - Typed dependencies ✅
 - Class-based dependencies ✅
 - __call__() with FastAPI dependencies ✅
+
+## Lesson 12 — SQLAlchemy + PostgreSQL
+
+Think MERN:
+
+```text
+Express     → FastAPI
+Mongoose    → SQLAlchemy
+MongoDB     → PostgreSQL
+```
+
+1. — Install SQLAlchemy + PostgreSQL driver
+
+Inside your activated .venv:
+
+```bash
+python -m pip install sqlalchemy psycopg2-binary
+```
+
+2.  — Create the database connection
+
+3.  — Create the User Model
+
+> Naal - 14-08-2025 🗓
+
+4.  — User Pydantic Schema
+
+API flow CLIENT - SERVER
+
+```text
+Client
+  ↓
+UserCreate
+  ↓
+Service
+  ↓
+SQLAlchemy User
+  ↓
+PostgreSQL
+  ↓
+SQLAlchemy User
+  ↓
+UserResponse
+  ↓
+Client
+```
+
+#### DB Session
+
+database.py - Has three responsibilities:
+
+```text
+database.py
+│
+├── engine              → connects to PostgreSQL
+├── SessionLocal        → creates DB sessions
+└── get_db()            → gives session to FastAPI and closes it
+```
+
+5. User Service
+
+6. User Route
+
+
+### Connect Router to main.py
+
+User APIs
+
+1. Create User
+2. Get All User
+3. Get User Profile
+4. Update User — PUT /users/{user_id}
+
+
+
+### Project folder structure
+
+```text
+Python/
+├── .venv/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── config.py
+│   │
+│   ├── db/
+│   │   ├── __init__.py
+│   │   ├── database.py
+│   │   └── models.py
+│   │
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   └── player.py
+│   │
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── player_service.py
+│   │
+│   └── routes/
+│       ├── __init__.py
+│       └── player.py
+│
+├── .env
+├── .gitignore
+├── requirements.txt
+└── README.md
+```

@@ -265,3 +265,7 @@ player_dependency = PlayerDependency("Shanmukh")
 @app.get("/class-player", response_model=PlayerDepRes)
 def get_class_player_dep(data: PlayerDepBM = Depends(player_dependency)):
     return {"message": "Fetched player dep successfully", "data": data}
+
+
+# 🚀 Next: Lesson 12 — SQLAlchemy + PostgreSQL
+print("\n🚀 Next: Lesson 12 — SQLAlchemy + PostgreSQL")
