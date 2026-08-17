@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, UploadFile
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
+from app.services.file import upload_file_service
 
 router = APIRouter(prefix="/files", tags=["Files"])
 
@@ -34,10 +35,27 @@ def upload_file(file: UploadFile, db: Session = Depends(get_db)):
 
     file_size = file_path.stat().st_size
 
+    result = upload_file_service(
+        db,
+        {
+            "filename": file.filename,
+            "generated_file_name": generated_file_name,
+            "file_path": str(file_path),
+            "content_type": file.content_type,
+            "file_size": file_size,
+            "file_category": "profile_image",
+            "status": "active",
+            "user_id": 2,
+        },
+    )
+
     return {
-        "original_file_name": file.filename,
-        "file_name": generated_file_name,
-        "path": str(file_path),
-        "mime_type": file.content_type,
-        "file_size": file_size,
+        "message": f"File uploaded successfully",
+        "data": {
+            "original_file_name": result.original_file_name,
+            "file_name": result.file_name,
+            "path": result.path,
+            "mime_type": result.mime_type,
+            "file_size": result.file_size,
+        },
     }
