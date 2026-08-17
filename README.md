@@ -398,7 +398,35 @@ User APIs
 
 #### 1. First concept: UploadFile
 
-2. Save the physical file
+```text
+Browser
+   ↓
+UploadFile
+   ↓
+FastAPI
+   ↓
+return metadata
+```
+
+> Naal - 17-08-2025 🗓
+
+#### Save the physical file
+
+```text
+Browser
+   ↓
+UploadFile
+   ↓
+Generate unique filename
+   ↓
+Save file to disk
+   ↓
+Create File DB record
+```
+1. Create the directory
+2. Update the upload endpoint
+
+#### Save File details to PostgreSQL
 
 
 

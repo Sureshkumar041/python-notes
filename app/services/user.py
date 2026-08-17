@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, select, update
 
 from app.models.user import User
-from app.schemas.user import CreateUser, DeleteUser, GetUserList, UpdateUser
+from app.schemas.user import CreateUser, DeleteUser, UpdateUser
 
 from fastapi import HTTPException, status
 
