@@ -428,7 +428,54 @@ Create File DB record
 
 #### Save File details to PostgreSQL
 
+#### user_id and file_category proper API inputs.
 
+## Flow we'll build
+
+```test
+                    ┌──────────────┐
+                    │  POST /users │
+                    └──────┬───────┘
+                           ↓
+                     Create User
+                           │
+                           │
+                    ┌──────▼───────┐
+                    │ POST /login  │
+                    └──────┬───────┘
+                           ↓
+                  Verify credentials
+                           ↓
+                    Generate JWT
+                           ↓
+                 access_token + type
+                           ↓
+              Authorization: Bearer ...
+                           ↓
+                get_current_user()
+                           ↓
+                    current_user.id
+```
+
+We'll add these pieces one by one:
+
+1. Password hashing
+2. Login schema
+3. JWT generation
+4. Login API
+5. JWT verification
+6. get_current_user dependency
+7. Protect File API
+
+> Naal - 18-08-2025 🗓
+
+#### JWT
+
+1. JWT generation
+
+```bash
+pip install PyJWT
+```
 
 
 

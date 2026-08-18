@@ -1,16 +1,20 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, select, update
 
+from app.core.security import hash_password, verify_password
 from app.models.user import User
-from app.schemas.user import CreateUser, DeleteUser, UpdateUser
+from app.schemas.user import CreateUser, DeleteUser, UpdateUser, UserLogin
 
 from fastapi import HTTPException, status
 
 
 def create_user_service(db: Session, payload: CreateUser):
+    password = hash_password(payload.password)
     user = User(
         first_name=payload.first_name,
         last_name=payload.last_name,
+        email=payload.email,
+        password_hash=password,
         status=payload.status,
     )
 
@@ -25,6 +29,32 @@ def create_user_service(db: Session, payload: CreateUser):
     # id
     # created_at
     db.refresh(user)
+
+    return user
+
+
+def login_ser(db: Session, payload: UserLogin):
+    query_builder = select(User).where(User.email == payload.email)
+
+    result = db.execute(query_builder)
+    user = result.scalar_one_or_none()
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
+
+    is_password_valid = verify_password(
+        payload.password,
+        user.password_hash,
+    )
+
+    if not is_password_valid:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
 
     return user
 

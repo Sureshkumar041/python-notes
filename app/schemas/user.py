@@ -5,15 +5,33 @@ from pydantic import BaseModel, ConfigDict, Field
 class CreateUser(BaseModel):
     first_name: str = Field(min_length=3)
     last_name: str = Field(min_length=3)
+    email: str
+    password: str = Field(min_length=6)
     status: str
+
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
 
 
 class UserDetailRes(BaseModel):
     id: int
     first_name: str
     last_name: str
+    email: str
     status: str
     created_at: datetime
+
+
+class UserLoginObj(BaseModel):
+    token: str
+    user_detail: UserDetailRes
+
+
+class UserLoginRes(BaseModel):
+    message: str
+    data: UserLoginObj
 
 
 class CreateUserObjRes(BaseModel):

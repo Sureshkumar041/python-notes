@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 
+from app.core.security import create_access_token
 from app.db.database import get_db
 from app.schemas.user import (
     CreateUser,
@@ -10,11 +11,13 @@ from app.schemas.user import (
     GetUserListRes,
     UpdateUser,
     UpdateUserRes,
+    UserLogin,
 )
 from app.services.user import (
     create_user_service,
     get_user_list_ser,
     get_user_profile_ser,
+    login_ser,
     update_user_ser,
     update_user_status_ser,
 )
@@ -29,6 +32,25 @@ router = APIRouter(
 def create_user(payload: CreateUser, db: Session = Depends(get_db)):
     user = create_user_service(db, payload)
     return {"message": "User created successfully", "data": {"user_detail": user}}
+
+
+@router.post("/login")
+def login(payload: UserLogin, db: Session = Depends(get_db)):
+    user = login_ser(db, payload)
+    access_token = create_access_token(user.id)
+    return {
+        "message": "Login successfully",
+        "data": {
+            "token": access_token,
+            "user_detail": {
+                "user_id": user.id,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
+                "status": user.status,
+            },
+        },
+    }
 
 
 @router.get("/get-all", response_model=GetUserListRes, status_code=status.HTTP_200_OK)

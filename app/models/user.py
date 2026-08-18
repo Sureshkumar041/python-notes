@@ -12,6 +12,8 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     first_name: Mapped[str]
     last_name: Mapped[str]
+    email: Mapped[str] = mapped_column(unique=True, index=True)
+    password_hash: Mapped[str]
     status: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=text("TIMEZONE('utc', NOW())")

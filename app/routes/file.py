@@ -23,7 +23,7 @@ def upload_file_test(file: UploadFile):
 
 
 @router.post("/upload")
-def upload_file(file: UploadFile, db: Session = Depends(get_db)):
+def upload_file(file: UploadFile, file_category: str, db: Session = Depends(get_db)):
     file_extension = Path(file.filename).suffix
 
     generated_file_name = f"{uuid4()}{file_extension}"
