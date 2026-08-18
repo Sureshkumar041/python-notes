@@ -513,9 +513,32 @@ Your API function runs
 ```
 #### File retrieval
 
-Get all files for the logged-in user
-In-progress
+APIs :-
 
+Get all files for the logged-in user
+
+Get file by Id
+
+##### Download / serve the physical file
+
+Flow
+```text
+JWT
+ ↓
+current_user
+ ↓
+File ID + current_user.id
+ ↓
+Database ownership check
+ ↓
+Get physical path
+ ↓
+Check file exists
+ ↓
+FileResponse
+ ↓
+Browser receives actual file
+```
 
 ### Project folder structure
 

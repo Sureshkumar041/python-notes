@@ -2,13 +2,19 @@ from pathlib import Path
 from uuid import uuid4
 from shutil import copyfileobj
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.core.security import get_current_user
 from app.db.database import get_db
 from app.models.user import User
 from app.schemas.file import GetUserFilesRes, UploadFileRes
-from app.services.file import get_user_files_ser, upload_file_service
+from app.services.file import (
+    get_file_by_id_ser,
+    get_file_download_ser,
+    get_user_files_ser,
+    upload_file_service,
+)
 from app.services.user import update_user_profile_image
 
 router = APIRouter(prefix="/files", tags=["Files"])
@@ -107,3 +113,28 @@ def get_user_files(
 ):
     result = get_user_files_ser(db, {"user_id": current_user.id})
     return {"message": "Fetched user files successfully", "data": result}
+
+
+@router.get("/{file_id}", status_code=status.HTTP_200_OK)
+def get_file_by_id(
+    file_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    result = get_file_by_id_ser(db, file_id, current_user.id)
+    return {"message": "Fetched file detail successfully", "data": result}
+
+
+@router.get("/{file_id}/download")
+def download_file(
+    file_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    file_detail = get_file_download_ser(db, file_id, current_user.id)
+
+    return FileResponse(
+        path=file_detail.path,
+        media_type=file_detail.mime_type,
+        filename=file_detail.original_file_name,
+    )
