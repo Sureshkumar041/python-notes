@@ -8,6 +8,7 @@ from app.core.security import get_current_user
 from app.db.database import get_db
 from app.models.user import User
 from app.services.file import upload_file_service
+from app.services.user import update_user_profile_image
 
 router = APIRouter(prefix="/files", tags=["Files"])
 
@@ -54,6 +55,11 @@ def upload_file(
             "status": "active",
             "user_id": current_user.id,
         },
+    )
+
+    # Update profile id to user
+    update_user = update_user_profile_image(
+        db, {"user_id": result.user_id, "profile_image_id": result.id}
     )
 
     return {

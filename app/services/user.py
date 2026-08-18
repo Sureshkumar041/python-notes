@@ -3,6 +3,7 @@ from sqlalchemy import func, or_, select, update
 
 from app.core.security import hash_password, verify_password
 from app.models.user import User
+from app.schemas.file import UpdateUserProfileImage
 from app.schemas.user import CreateUser, DeleteUser, UpdateUser, UserLogin
 
 from fastapi import HTTPException, status
@@ -150,6 +151,19 @@ def update_user_status_ser(db: Session, payload: DeleteUser):
                 "status": payload.status,
             }
         )
+    )
+
+    db.execute(stmt)
+    db.commit()
+    return True
+
+
+def update_user_profile_image(db: Session, payload: UpdateUserProfileImage) -> bool:
+    user_id = payload["user_id"]
+    stmt = (
+        update(User)
+        .where(User.id == user_id)
+        .values({"profile_image_id": payload["profile_image_id"]})
     )
 
     db.execute(stmt)
