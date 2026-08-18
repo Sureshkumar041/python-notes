@@ -4,7 +4,9 @@ from shutil import copyfileobj
 from fastapi import APIRouter, Depends, UploadFile
 from sqlalchemy.orm import Session
 
+from app.core.security import get_current_user
 from app.db.database import get_db
+from app.models.user import User
 from app.services.file import upload_file_service
 
 router = APIRouter(prefix="/files", tags=["Files"])
@@ -23,7 +25,12 @@ def upload_file_test(file: UploadFile):
 
 
 @router.post("/upload")
-def upload_file(file: UploadFile, file_category: str, db: Session = Depends(get_db)):
+def upload_file(
+    file: UploadFile,
+    file_category: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     file_extension = Path(file.filename).suffix
 
     generated_file_name = f"{uuid4()}{file_extension}"
@@ -43,9 +50,9 @@ def upload_file(file: UploadFile, file_category: str, db: Session = Depends(get_
             "file_path": str(file_path),
             "content_type": file.content_type,
             "file_size": file_size,
-            "file_category": "profile_image",
+            "file_category": file_category,
             "status": "active",
-            "user_id": 2,
+            "user_id": current_user.id,
         },
     )
 

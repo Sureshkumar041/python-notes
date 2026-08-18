@@ -476,7 +476,41 @@ We'll add these pieces one by one:
 ```bash
 pip install PyJWT
 ```
+Implemented the JWT token in login API
 
+HTTPBearer() tells FastAPI:
+
+This dependency requires an Authorization: Bearer <token> header.
+
+So the dependency chain is:
+
+```text
+GET /users/me
+       │
+       ↓
+Depends(get_current_user)
+       │
+       ↓
+Depends(security)
+       │
+       ↓
+HTTPBearer()
+       │
+       ↓
+Authorization: Bearer <JWT>
+       │
+       ↓
+JWT decoded
+       │
+       ↓
+User fetched from DB
+       │
+       ↓
+current_user
+       │
+       ↓
+Your API function runs
+```
 
 
 ### Project folder structure
