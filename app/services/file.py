@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func, select
 from fastapi import Depends, File, UploadFile
 
 from app.db.database import get_db
@@ -25,6 +26,16 @@ def upload_file_service(db: Session, file_detail):
     return file
 
 
-def update_profile_image(db: Session, payload):
-    user = User()
-    return True
+def get_user_files_ser(db: Session, payload):
+
+    query_builder = select(FileModel).where(FileModel.user_id == payload["user_id"])
+
+    # total count
+    count_query = select(func.count()).select_from(query_builder.subquery())
+    total_count = db.scalar(count_query)
+
+    result = db.execute(query_builder)
+
+    files = result.scalars().all()
+
+    return {"list": files, "total_count": total_count}

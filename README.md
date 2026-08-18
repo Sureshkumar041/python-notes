@@ -513,6 +513,7 @@ Your API function runs
 ```
 #### File retrieval
 
+Get all files for the logged-in user
 In-progress
 
 
