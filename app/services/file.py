@@ -1,23 +1,21 @@
 from pathlib import Path
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, func, select, update
-from fastapi import Depends, File, HTTPException, status, UploadFile
+from fastapi import HTTPException, status
 
-from app.db.database import get_db
-from app.models.file import File as FileModel
-from app.models.user import User
+from app.models.file import File as FileModel, FileStatus
 
 
 def upload_file_service(db: Session, file_detail):
     file = FileModel(
-        user_id=1,
-        file_category="profile_image",
+        user_id=file_detail["user_id"],
+        file_category=file_detail["file_category"],
         original_file_name=file_detail["filename"],
         file_name=file_detail["generated_file_name"],
         path=file_detail["file_path"],
         mime_type=file_detail["content_type"],
         file_size=file_detail["file_size"],
-        status="active",
+        status=file_detail["status"],
     )
 
     db.add(file)
@@ -30,7 +28,10 @@ def upload_file_service(db: Session, file_detail):
 def get_user_files_ser(db: Session, payload):
 
     query_builder = select(FileModel).where(
-        and_(FileModel.user_id == payload["user_id"], FileModel.status == "active")
+        and_(
+            FileModel.user_id == payload["user_id"],
+            FileModel.status == FileStatus.ACTIVE,
+        )
     )
 
     # total count
@@ -50,7 +51,7 @@ def get_file_by_id_ser(db: Session, file_id: int, user_id: int):
         and_(
             FileModel.user_id == user_id,
             FileModel.id == file_id,
-            FileModel.status == "active",
+            FileModel.status == FileStatus.ACTIVE,
         )
     )
 
@@ -87,7 +88,7 @@ def delete_file_ser(db: Session, file_id: int, user_id: int):
     stmt = (
         update(FileModel)
         .where(and_(FileModel.id == file_id, FileModel.user_id == user_id))
-        .values({"status": "deleted"})
+        .values({"status": FileStatus.DELETED})
     )
 
     db.execute(stmt)

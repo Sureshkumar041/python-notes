@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security import get_current_user
 from app.db.database import get_db
+from app.models.file import FileStatus
 from app.models.user import User
 from app.schemas.file import GetUserFilesRes, UploadFileRes
 from app.services.file import (
@@ -85,7 +86,7 @@ def upload_file(
             "content_type": file.content_type,
             "file_size": file_size,
             "file_category": file_category,
-            "status": "active",
+            "status": FileStatus.ACTIVE,
             "user_id": current_user.id,
         },
     )
@@ -98,11 +99,14 @@ def upload_file(
     return {
         "message": f"File uploaded successfully",
         "data": {
+            "id": result.id,
             "original_file_name": result.original_file_name,
             "file_name": result.file_name,
             "path": result.path,
             "mime_type": result.mime_type,
             "file_size": result.file_size,
+            "created_at": result.created_at,
+            "status": result.status,
         },
     }
 

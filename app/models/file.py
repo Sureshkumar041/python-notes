@@ -1,7 +1,13 @@
 from datetime import datetime
+from enum import Enum
 from sqlalchemy import text, DateTime, ForeignKey
 from app.db.base import Base
 from sqlalchemy.orm import Mapped, mapped_column
+
+
+class FileStatus(str, Enum):
+    ACTIVE = "active"
+    DELETED = "deleted"
 
 
 class File(Base):
@@ -17,7 +23,7 @@ class File(Base):
     mime_type: Mapped[str]
     # bytes
     file_size: Mapped[int]
-    status: Mapped[str]
+    status: Mapped[FileStatus]
     created_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=text("TIMEZONE('utc', NOW())")
     )

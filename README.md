@@ -575,6 +575,79 @@ User
 one-to-one
 one-to-many
 
+## Lesson 14 — Python Enum
+
+Python's Enum lets us define a fixed set of allowed values.
+
+1. What's the problem with plain str?
+2. What is an Enum?
+
+An Enum is a type containing a fixed collection of named values.
+
+3. Why str, Enum?
+
+```python
+class FileStatus(str, Enum):
+```
+
+4. Enum has two important things
+
+```python
+class FileStatus(str, Enum):
+    ACTIVE = "active"
+    DELETED = "deleted"
+```
+
+- Name
+```python
+FileStatus.ACTIVE.name
+
+# ACTIVE
+```
+
+- Value
+```python
+FileStatus.ACTIVE.value
+
+# active
+```
+
+ACTIVE --> The uppercase part is the Python identifier.
+
+active --> The lowercase part is the actual value.
+
+5. Let's apply it to real model
+
+Instead of:
+```python
+status: Mapped[str]
+```
+
+Follow this:
+```python
+status: Mapped[FileStatus]
+```
+
+6. Why is this better?
+
+Enum
+```python
+FileStatus.ACTIVE
+FileStatus.DELETED
+FileStatus.ARCHIVED
+FileStatus.PROCESSING
+FileStatus.FAILED
+```
+And if someone tries:
+
+```python
+FileStatus.SOMETHING
+```
+    - Python immediately tells you it doesn't exist.
+
+7. Implementation
+
+
 
 ### Project folder structure
 
