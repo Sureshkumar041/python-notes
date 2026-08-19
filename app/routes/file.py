@@ -10,6 +10,7 @@ from app.db.database import get_db
 from app.models.user import User
 from app.schemas.file import GetUserFilesRes, UploadFileRes
 from app.services.file import (
+    delete_file_ser,
     get_file_by_id_ser,
     get_file_download_ser,
     get_user_files_ser,
@@ -138,3 +139,13 @@ def download_file(
         media_type=file_detail.mime_type,
         filename=file_detail.original_file_name,
     )
+
+
+@router.delete("/{file_id}", status_code=status.HTTP_200_OK)
+def delete_file(
+    file_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    result = delete_file_ser(db, file_id, current_user.id)
+    return {"message": "Deleted file successfully"}

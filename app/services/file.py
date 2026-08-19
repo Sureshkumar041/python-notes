@@ -1,6 +1,6 @@
 from pathlib import Path
 from sqlalchemy.orm import Session
-from sqlalchemy import and_, func, select
+from sqlalchemy import and_, func, select, update
 from fastapi import Depends, File, HTTPException, status, UploadFile
 
 from app.db.database import get_db
@@ -29,7 +29,9 @@ def upload_file_service(db: Session, file_detail):
 
 def get_user_files_ser(db: Session, payload):
 
-    query_builder = select(FileModel).where(FileModel.user_id == payload["user_id"])
+    query_builder = select(FileModel).where(
+        and_(FileModel.user_id == payload["user_id"], FileModel.status == "active")
+    )
 
     # total count
     count_query = select(func.count()).select_from(query_builder.subquery())
@@ -45,7 +47,11 @@ def get_user_files_ser(db: Session, payload):
 def get_file_by_id_ser(db: Session, file_id: int, user_id: int):
 
     query_builder = select(FileModel).where(
-        and_(FileModel.user_id == user_id, FileModel.id == file_id)
+        and_(
+            FileModel.user_id == user_id,
+            FileModel.id == file_id,
+            FileModel.status == "active",
+        )
     )
 
     result = db.execute(query_builder).scalar_one_or_none()
@@ -72,3 +78,19 @@ def get_file_download_ser(db: Session, file_id: int, user_id: int):
         )
 
     return file_detail
+
+
+def delete_file_ser(db: Session, file_id: int, user_id: int):
+
+    file_detail = get_file_by_id_ser(db, file_id, user_id)
+
+    stmt = (
+        update(FileModel)
+        .where(and_(FileModel.id == file_id, FileModel.user_id == user_id))
+        .values({"status": "deleted"})
+    )
+
+    db.execute(stmt)
+    db.commit()
+
+    return True

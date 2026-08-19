@@ -539,6 +539,13 @@ FileResponse
  ↓
 Browser receives actual file
 ```
+> Naal - 19-08-2025 🗓
+
+#### File soft delete
+
+## SQLAlchemy relationships
+
+
 
 ### Project folder structure
 
