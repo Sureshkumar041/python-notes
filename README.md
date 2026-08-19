@@ -545,6 +545,35 @@ Browser receives actual file
 
 ## SQLAlchemy relationships
 
+1. ForeignKey vs relationship()
+
+```python
+user_id: Mapped[int] = mapped_column(
+    ForeignKey("users.id")
+)
+```
+
+Now PostgreSQL understands:
+
+```text
+files.user_id
+      ↓
+users.id
+```
+That's a database relationship.
+
+2. Then what is relationship()?
+
+relationship() is an ORM-level relationship.
+
+```text
+User
+ ├── profile_image → File
+ └── files[]       → File[]
+```
+
+one-to-one
+one-to-many
 
 
 ### Project folder structure

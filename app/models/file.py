@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import text, DateTime
+from sqlalchemy import text, DateTime, ForeignKey
 from app.db.base import Base
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -8,7 +8,7 @@ class File(Base):
     __tablename__ = "files"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    user_id: Mapped[int]
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     # profile_image / document / etc.
     file_category: Mapped[str]
     original_file_name: Mapped[str]

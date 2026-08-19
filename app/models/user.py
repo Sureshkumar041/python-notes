@@ -24,7 +24,7 @@ class User(Base):
         onupdate=text("TIMEZONE('utc', NOW())"),
     )
     profile_image_id: Mapped[int | None] = mapped_column(
-        ForeignKey("files.id"), nullable=True
+        ForeignKey("files.id"), nullable=True, unique=True
     )
     profile_image: Mapped["File | None"] = relationship(
         "File",
