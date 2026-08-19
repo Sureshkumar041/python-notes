@@ -647,6 +647,215 @@ FileStatus.SOMETHING
 
 7. Implementation
 
+In File Model -> For Status column
+
+## Lesson 15 — Python Decorators
+
+#### 1. Functions are objects in Python
+
+- This is the foundation for decorators.
+- In Python, a function isn't just something you execute.
+
+- A function is an object.
+
+For example:
+
+```python
+def greet():
+    print("Hello")
+
+x = greet
+
+x()
+```
+
+Think:
+
+```text
+greet ──────┐
+            ↓
+        function object
+            ↑
+x ──────────┘
+```
+This ability is one of the foundations of decorators.
+
+#### 2. Functions can be passed to other functions
+
+```python
+def greet():
+    print("Hello")
+
+
+def execute(func):
+    func()
+
+
+execute(greet)
+```
+#### 3. Functions can return functions
+
+```python
+def outer():
+    
+    def inner():
+        print("Hello")
+
+    return inner
+
+result = outer()
+result()
+```
+##### Combine these two abilities:
+
+```text
+functions can be passed around
++
+functions can return functions
+=
+decorators
+```
+#### 4. The simplest decorator
+
+```python
+def my_decorator(func):
+
+    def wrapper():
+        print("Before")
+        func()
+        print("After")
+
+    return wrapper
+
+def greet():
+    print("Hello")
+
+greet = my_decorator(greet)
+greet()
+```
+
+Output:-
+```bash
+Before
+Hello
+After
+```
+#### 5. What does @ mean?
+
+Python gives us shorthand syntax.
+
+```python
+# Instead of:
+def greet():
+    print("Hello")
+
+greet = my_decorator(greet)
+
+# @ - Decorator
+# we can write
+@my_decorator
+def greet():
+    print("Hello")
+```
+
+#### 6. What actually happens?
+
+```python
+@my_decorator
+def greet():
+    print("Hello")
+```
+
+Python effectively does:
+
+```text
+Create greet function
+        ↓
+my_decorator(greet)
+        ↓
+returns wrapper
+        ↓
+greet now refers to wrapper
+```
+
+Visualized:
+
+```text
+greet()
+   ↓
+wrapper()
+   ↓
+Before
+   ↓
+original greet()
+   ↓
+Hello
+   ↓
+After
+```
+
+#### 7. Why is this useful?
+
+Without decorators:
+
+```python
+# It's repetitive.
+def create_user():
+    print("create_user started")
+    ...
+    print("create_user finished")
+
+def create_user():
+    print("create_user started")
+    ...
+    print("create_user finished")
+```
+
+Instead:
+```python
+@log_execution
+def create_user():
+    ...
+
+@log_execution
+def get_user():
+    ...
+```
+
+The decorator handles the common behavior.
+This is called "cross-cutting behavior".
+
+Examples:
+```text
+Logging
+Authentication
+Authorization
+Timing
+Caching
+Validation
+Retry
+Permission checking
+```
+#### 8. Your FastAPI code
+
+```python
+@router.get("/files")
+def get_files():
+    ...
+```
+
+But now you know what's conceptually happening:
+
+```python
+router.get("/files")(get_files)
+```
+
+🧠 Your decorator mental model
+
+Keep this one sentence:
+
+> A decorator takes a function, wraps/enhances it, and returns a function.
+
 
 
 ### Project folder structure
