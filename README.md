@@ -919,9 +919,48 @@ A closure happens when:
 
 #### 4. Why does Python do this?
 #### 5. Multiple closures can remember different values
+
+> Naal - 20-08-2025 🗓
+
 #### 6. Closures + decorators
 
+```python
+def decorator(func):
 
+    def wrapper():
+        print("Before")
+        func()
+        print("After")
+
+    return wrapper
+```
+
+Work Flow:-
+```text
+decorator(func)
+       │
+       │ func
+       ↓
+   wrapper()
+       │
+       │ remembers func
+       ↓
+original function
+```
+
+> Decorators commonly use closures to remember the original function.
+
+#### 7. Why should you care about closures?
+
+They're behind concepts such as:
+
+- decorators
+- decorator factories
+- function factories
+- callbacks
+- configuration-based functions
+- some dependency patterns
+- caching mechanisms
 
 ### Project folder structure
 
