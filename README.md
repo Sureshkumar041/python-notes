@@ -649,7 +649,7 @@ FileStatus.SOMETHING
 
 In File Model -> For Status column
 
-## Lesson 15 — Python Decorators
+## Lesson 15 — Decorators
 
 #### 1. Functions are objects in Python
 
@@ -855,6 +855,71 @@ router.get("/files")(get_files)
 Keep this one sentence:
 
 > A decorator takes a function, wraps/enhances it, and returns a function.
+
+## Lesson 15 — Closures
+
+#### 1. Start with a nested function
+
+```python
+def outer():
+    
+    def inner():
+        print("Hello")
+
+    inner()
+
+x = outer()
+x()
+```
+
+```python outer() ``` has already finished executing.
+
+But ```python inner() ``` still exists.
+
+#### 2. Now introduce a variable
+
+```python
+def outer():
+
+    message = "Hello"
+
+    def inner():
+        print(message)
+
+    return inner
+
+x = outer()
+x()
+```
+
+Flow:-
+```text
+outer()
+  ↓
+message = "Hello"
+  ↓
+inner created
+  ↓
+inner remembers message
+  ↓
+outer finishes
+  ↓
+x()
+  ↓
+inner still accesses message
+```
+
+That "remembering" is the core idea behind a closure.
+
+#### 3. What exactly is a closure?
+
+A closure happens when:
+
+> An inner function remembers and can access variables from its enclosing function even after the enclosing function has finished executing.
+
+#### 4. Why does Python do this?
+#### 5. Multiple closures can remember different values
+#### 6. Closures + decorators
 
 
 
